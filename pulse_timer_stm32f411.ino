@@ -1,7 +1,8 @@
-#define SerialUSB Serial        // this is needed for trinket m0
-#define CLK_FREQ 96.005         // update this to the core clock frequency, in MHz
-#define SINGLE_CLK_PERIOD 10.42 // updates this to the core clock period, in ns
-#define ARRAY_LENGTH 100        // this is the number of consecutive high and low durations to be saved
+#define SerialUSB         Serial // this is an alias for the usb serial port
+#define CLK_FREQ          96.005 // update this to the core clock frequency, in MHz
+#define SINGLE_CLK_PERIOD 10.42  // updates this to the core clock period, in ns
+#define NUM_CLK_PERIODS    2     // this is a fixed offset adjustment factor
+#define ARRAY_LENGTH     100     // this is the number of consecutive high and low durations to be saved
 
 volatile uint32_t cc1_array [ARRAY_LENGTH];
 volatile uint32_t cc2_array [ARRAY_LENGTH];
@@ -59,7 +60,7 @@ void loop()
         array_length = cc1_count - 1;
         for ( a=0; a < array_length; a = a + 1 )
         {
-          high_duration = (cc1_array[a] * (1000.0 / CLK_FREQ) + 2*SINGLE_CLK_PERIOD);
+          high_duration = (cc1_array[a] * (1000.0 / CLK_FREQ) + NUM_CLK_PERIODS*SINGLE_CLK_PERIOD);
           if (high_duration > 3900000000)
             {
               cc1_count--;
@@ -75,7 +76,7 @@ void loop()
         array_length = cc2_count - 1;
         for ( a=0; a < array_length; a = a + 1 )
         {
-          low_duration = cc2_array[a] * (1000.0 / CLK_FREQ) + 2*SINGLE_CLK_PERIOD;
+          low_duration = cc2_array[a] * (1000.0 / CLK_FREQ) + NUM_CLK_PERIODS*SINGLE_CLK_PERIOD;
           if (low_duration > 3900000000)
           {
             cc2_count--;
@@ -93,12 +94,12 @@ void loop()
 
       for ( a=0; a < cc1_count; a = a + 1 )
       {
-        high_duration = cc1_array[a] * (1000.0 / CLK_FREQ) + 2*SINGLE_CLK_PERIOD;
+        high_duration = cc1_array[a] * (1000.0 / CLK_FREQ) + NUM_CLK_PERIODS*SINGLE_CLK_PERIOD;
         SerialUSB.print("high_duration=");
         SerialUSB.println(high_duration);
         if (a < cc2_count)
         {
-          low_duration = cc2_array[a] * (1000.0 / CLK_FREQ) + 2*SINGLE_CLK_PERIOD;
+          low_duration = cc2_array[a] * (1000.0 / CLK_FREQ) + NUM_CLK_PERIODS*SINGLE_CLK_PERIOD;
           SerialUSB.print("low_duration=");
           SerialUSB.println(low_duration);
         }
