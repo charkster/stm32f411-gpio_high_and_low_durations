@@ -1,5 +1,5 @@
 # stm32f411-gpio_high_and_low_durations
-This arduino code for STM32F411 will record a gpio's high and low duration for multiple pulses.
+This arduino code for STM32F411 will record a gpio's high and low duration for multiple pulses. With a 100MHz system clock this can reliably capture 400ns high and low pulses (back-to-back).
 
 The build_opt.h is needed to disable HAL timer irq handlers (I use a custom irq handler).
 There are only a couple of gpio pins that connect to the TIM2 block as CH1 input (A5 and A0), I chose A5 and it is part of the code.
