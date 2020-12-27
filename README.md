@@ -7,4 +7,4 @@ There are only a couple of gpio pins that connect to the TIM2 block as CH1 input
 There are 2 parameters to trim to the system clock, CLK_FREQ and NUM_CLK_PERIODS. For greater accuracy, select appropriate values.
 First calibrate with slow duration pulses, the CLK_FREQ will be adjusted. Next very fast durations (300ns and less) can be used to select NUM_CLK_PERIODS.
 
-Maybe in the future I will output the system clock or a divided version which can be used to calibrate the board with an oscilloscope. 
+Added "en_pll_div5_on_pa8" function to output the PLL (system) clock div5 on PA8. This can be used to measure the exact CLK_FREQ.
