@@ -122,3 +122,12 @@ extern "C" void TIM2_IRQHandler(void)  // Interrupt Service Routine (ISR) for ti
      cc2_array[cc2_count++] = TIM2->CCR2; // status bit self clears on read
   }
 }
+
+// call this function if you want to see the system clock div5 on PA8
+void en_pll_div5_on_pa8(void)
+{
+  GPIOA->MODER |= GPIO_MODER_MODE8_1;                       // alternate function on PA8, by default it is MCO1
+  RCC->CFGR    |= RCC_CFGR_MCO1_0    | RCC_CFGR_MCO1_1    | // select PLL
+                  RCC_CFGR_MCO1PRE_2 | RCC_CFGR_MCO1PRE_1 | // select divide by 5
+                  RCC_CFGR_MCO1PRE_0;
+}
