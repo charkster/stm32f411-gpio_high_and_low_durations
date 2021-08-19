@@ -8,3 +8,5 @@ There are 2 parameters to trim to the system clock, CLK_FREQ and NUM_CLK_PERIODS
 First calibrate with slow duration pulses, the CLK_FREQ will be adjusted. Next very fast durations (300ns and less) can be used to select NUM_CLK_PERIODS.
 
 Added "en_pll_div5_on_pa8" function to output the PLL (system) clock div5 on PA8. This can be used to measure the exact CLK_FREQ.
+
+Added uf2 file for easy programming. Tinyuf2 for stm32f411ce "Blackpill" needs to be programmed as the bootloader in order to use the uf2 file.
